@@ -1,0 +1,21 @@
+{
+    "name": "SeedProject Framework",
+    "short_name" : "PWA",
+    "start_url": "/",
+    "scope" : "./",
+    "icons": [
+        {
+            "src": "/assets/icons/ComiidaIcon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/icons/ComiidaIcon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffee00",
+    "background_color": "#ffee00",
+    "display": "standalone"
+}
