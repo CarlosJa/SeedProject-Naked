@@ -8,7 +8,7 @@ class Bootstrap {
     private $_modelPath = 'models/'; // Always include trailing slash
     private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
-    private $_defaultPath = 'public/';
+    private $_defaultPath = 'public';
 
 
     /**
@@ -34,6 +34,16 @@ class Bootstrap {
         //Router
         $this->match = Router::Routing();
 
+    if(DEBUG == true) {
+        register_shutdown_function(function () {
+            $err = error_get_last();
+            if (! is_null($err)) {
+                print 'Error#'.$err['message'].'<br>';
+                print 'Line#'.$err['line'].'<br>';
+                print 'File#'.$err['file'].'<br>';
+            }
+        });
+    }
 
 
         // This check whether there is a match         
@@ -54,7 +64,7 @@ class Bootstrap {
      */
     public function setControllerPath($path ='') {
         \Helper::print_array($path);
-        $this->_controllerPath = trim($path, '/') . '/';
+        $this->_controllerPath = trim($path, '') . '';
     }
 
     /**
@@ -62,7 +72,7 @@ class Bootstrap {
      * @param string $path
      */
     public function setModelPath($path ='') {
-        $this->_modelPath = trim($path, '/') . '/';
+        $this->_modelPath = trim($path, '') . '';
     }
 
     /**
@@ -87,7 +97,7 @@ class Bootstrap {
      * @param string $path Use the file name of your controller, eg: index.php
      */
     public function setDefaultPath($path = '') {
-        $this->_defaultPath = trim($path, '/');
+        $this->_defaultPath = trim($path, '');  // Removed the trim for /
     }
 
 
@@ -106,7 +116,7 @@ class Bootstrap {
      * This loads if there is no GET parameter passed
      */
     private function _loadDefaultController() {
-        require $this->_defaultPath . $this->_controllerPath . $this->_defaultFile;
+        require $this->_defaultPath . '/' . $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
         $this->_controller->index();
     }
@@ -117,7 +127,7 @@ class Bootstrap {
      * @return boolean|string
      */
     private function _loadExistingController() {
-        $file = $this->_controllerPath . $this->_url[0] . '.php';
+        $file = $this->_defaultPath . '/' . $this->_controllerPath . $this->_url[0] . '.php';
 		
 		
         if (file_exists($file)) {
@@ -144,7 +154,7 @@ class Bootstrap {
         $this->URIParameters = $this->match['params'];
 
 		
-        $file = $this->_controllerPath . $this->ControllerName . '.php';
+        $file = $this->_defaultPath . '/' . $this->_controllerPath . $this->ControllerName . '.php';
 
         if (file_exists($file)) {
             require $file;
@@ -214,7 +224,7 @@ class Bootstrap {
      * @return boolean
      */
     private function _error() {
-        require $this->_controllerPath . $this->_errorFile;
+        require $this->_defaultPath . '/' . $this->_controllerPath . $this->_errorFile;
         $this->_controller = new _Error();
         $this->_controller->index();
         exit;

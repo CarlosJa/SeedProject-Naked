@@ -14,4 +14,9 @@ class Index extends Controller {
         $this->view->render('index/index');
 
     }
+
+    function test($param) {
+        echo "Test Param: {$param}";
+    }
+
 }
