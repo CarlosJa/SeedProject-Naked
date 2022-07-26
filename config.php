@@ -4,7 +4,7 @@ define('SITE_BASE', '/');
 define('ASSETS', '/public/assets/');
 define('LIBS', 'core/');
 define('COMPANY', 'CryptoBot - by CarlosArias.com');
-define('DEBUG', false);
+define('DEBUG', true);
 
 define('EMAILUSER', 'ADDEMAILUSER');
 define('EMAILPASSWORD', 'ADDEMAILPASSWORD');
