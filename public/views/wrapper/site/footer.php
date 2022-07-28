@@ -1,4 +1,8 @@
 
+<script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript Files -->
+
 <?php
 if($this->JavaScript) {
     foreach ($this->JavaScript as $kj => $JavaScript) :
