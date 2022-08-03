@@ -7,6 +7,5 @@ define('VIEWS_PATH', __DIR__);
 
 
 $bootstrap = new Bootstrap();
-// $bootstrap->setControllerPath(__DIR__ . '/controllers/');
 $bootstrap->init();
 
