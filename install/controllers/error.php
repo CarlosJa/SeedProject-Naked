@@ -16,6 +16,7 @@ class _Error extends Controller {
         $this->JavaScript[] = ASSETS . "/js/pages/crypto-dashboard.init.js";
         $this->view->JavaScript = $this->JavaScript;
 
+
         $this->view->title = COMPANY;
         $this->view->render(__CLASS__ .'/'. __FUNCTION__);
 	}

@@ -7,6 +7,12 @@ class Test extends Controller {
     }
 
     function index() {
+        $this->Styles['commenta'] = '<!-- Css files -->';
+        $this->view->Styles = $this->Styles;
+
+        $this->JavaScript[] = ASSETS . "/js/pages/crypto-dashboard.init.js";
+        $this->view->JavaScript = $this->JavaScript;
+
         echo 'Test Controller working.. ';
 
         $this->view->title = COMPANY;
