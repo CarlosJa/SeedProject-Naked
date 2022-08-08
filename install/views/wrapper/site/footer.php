@@ -13,6 +13,8 @@ if($this->JavaScript) {
 ?>
 
 
-</body>
+<script src="/install/assets/bootstrap.bundle.min.js"></script>
 
+
+</body>
 </html>
