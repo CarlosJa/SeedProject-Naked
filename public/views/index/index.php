@@ -1,7 +1,7 @@
 <main>
 
     <div class="px-4 py-5 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="/public/assets/imgs/WelcomeSeedProject.jpg">
+        <img class="d-block mx-auto mb-4 img-fluid" src="/public/assets/imgs/WelcomeSeedProject.jpg">
         <h1 class="display-5 fw-bold">SeedProject - Naked Framework</h1>
         <div class="col-lg-6 mx-auto">
             <p class="lead mb-4">SeedProject Light-Weight PHP Framework developed by Carlos Arias <code><a href="https://www.carlosarias.com">www.carlosarias.com</a></code>.
