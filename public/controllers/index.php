@@ -7,6 +7,7 @@ class Index extends Controller {
        // echo $ this->view->PartialView('menu');
 
 
+
         $this->Styles['commenta'] = '<!-- Css files -->';
         $this->view->Styles = $this->Styles;
 
