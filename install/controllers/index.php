@@ -68,7 +68,7 @@ class Index extends Controller {
         }
 
        $sql = file_get_contents($SQLFile);
-       $mysqli = new mysqli("localhost", "ochenta80_admin", "gekko-0-0", "ochenta80_db123");
+       $mysqli = new mysqli($dbLoca, $dbUser, $dbPass, $dbName);
 
         /* check connection */
         if ($mysqli->connect_errno) {
