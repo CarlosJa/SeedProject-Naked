@@ -8,6 +8,8 @@ class View {
     }
 
     public function render($name, $type='site', $noInclude = true) {
+        if(empty($type)) { $type = 'site'; }
+
         $name = strtolower($name);
 
         if ($noInclude == false) {
