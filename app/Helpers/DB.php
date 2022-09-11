@@ -119,6 +119,10 @@ class Db
      */
     public static function update($table, $data, $where)
     {
+        if(self::$_pdoObject == null) {
+            self::_connect();
+        }
+
         ksort($data);
 
         $fieldDetails = NULL;
@@ -150,10 +154,9 @@ class Db
 
 
         } catch (PDOException $e) {
-            $Response['Code']='0';
+            $ErrorCode = $e->errorInfo[1];
+            $Response['Code']=$ErrorCode;
             $Response['Message']= 'Error Updating Database: ' . $e->getMessage();
-
-
         }
 
         return json_encode($Response);
