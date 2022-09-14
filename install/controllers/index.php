@@ -7,12 +7,7 @@ class Index extends Controller {
     }
 
     function index() {
-
-
-
-        $this->view->title = COMPANY;
-       // $this->view->render(__CLASS__ .'/'. __FUNCTION__);
-        $this->view->render('index/index');
+        $this->view->render(__CLASS__ .'/'. __FUNCTION__);
     }
 
     function checkDB(){

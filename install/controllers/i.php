@@ -19,20 +19,14 @@ class I extends Controller {
     }
 
     function requirements(){
-        $this->view->title = COMPANY;
-        // $this->view->render(__CLASS__ .'/'. __FUNCTION__);
         $this->view->render('index/requirements');
     }
 
     function setup(){
-        $this->view->title = COMPANY;
-        // $this->view->render(__CLASS__ .'/'. __FUNCTION__);
         $this->view->render('index/setup');
     }
 
     function complete(){
-        $this->view->title = COMPANY;
-        // $this->view->render(__CLASS__ .'/'. __FUNCTION__);
         $this->view->render('index/complete');
     }
 
