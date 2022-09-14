@@ -1,10 +1,14 @@
 <?php
-define('URL', 'https://www.seedproject.com/');
-define('SITE_BASE', '/');
-define('ASSETS', '/public/assets/');
+$dir = strtok(parse_url($_SERVER['SCRIPT_URI'], PHP_URL_PATH), '/');
+
+define('URL', 'https://www.seedproject.com');
+define('SITE_BASE', '/' . $dir);
+define('ASSETS', '/' . $dir . '/assets');
 define('LIBS', 'core/');
-define('COMPANY', 'CryptoBot - by CarlosArias.com');
-define('DEBUG', true);
+define('PROJECT_NAME', 'SeedProject');
+define('PROJECT_LOGO', '/assets/SeedProject.png');
+define('DEBUG', false);
+define('SECUREAPI', false);
 
 define('EMAILUSER', 'ADDEMAILUSER');
 define('EMAILPASSWORD', 'ADDEMAILPASSWORD');
