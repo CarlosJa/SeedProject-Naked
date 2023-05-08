@@ -16,9 +16,9 @@ define('EMAILHOST', 'ADDEMAILHOST');
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', '######');
-define('DB_USER', '######');
-define('DB_PASS', '######');
+define('DB_NAME', 'seedframework_chatgpt');
+define('DB_USER', 'seedframework_admin');
+define('DB_PASS', 'gekko-0-0');
 
 define( 'HASH_PASSWORD_KEY',    'G%@xZY+-5% %5:+pK#1IUzM9l}3.]PsSJ=d.^SlD{+mQYVxK4eP_fZT->nRFl@t,');
 define( 'HASH_API_KEY',         ':-?7>?@[TP=oor}~<YU#EE,_dq2uwH{Zc4o0fg7*TI|rDe>BY 6UaJ!Vp$6Bw6tD');

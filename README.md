@@ -26,3 +26,10 @@ To use custom routing go to **/plugins/Router.php**  you can add your Router Map
 ---
 
 To learn more about AltoRouter visit (https://altorouter.com/usage/mapping-routes.html) 
+
+
+
+
+
+
+

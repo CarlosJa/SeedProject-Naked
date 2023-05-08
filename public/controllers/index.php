@@ -6,8 +6,6 @@ class Index extends Controller {
         parent::__construct();
        // echo $ this->view->PartialView('menu');
 
-
-
         $this->Styles['commenta'] = '<!-- Css files -->';
         $this->view->Styles = $this->Styles;
 

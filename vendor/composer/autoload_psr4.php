@@ -17,6 +17,7 @@ return array(
     'Symfony\\Component\\Console\\' => array($vendorDir . '/symfony/console'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Orhanerday\\OpenAi\\' => array($vendorDir . '/orhanerday/open-ai/src'),
     'Models\\' => array($baseDir . '/models'),
     'App\\' => array($baseDir . '/app'),
 );

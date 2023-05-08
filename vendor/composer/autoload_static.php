@@ -35,6 +35,10 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
             'Psr\\Container\\' => 14,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'O' => 
+        array (
+            'Orhanerday\\OpenAi\\' => 18,
+        ),
         'M' => 
         array (
             'Models\\' => 7,
@@ -90,6 +94,10 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Orhanerday\\OpenAi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/orhanerday/open-ai/src',
+        ),
         'Models\\' => 
         array (
             0 => __DIR__ . '/../..' . '/models',
@@ -97,16 +105,6 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'U' => 
-        array (
-            'Unirest\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/mashape/unirest-php/src',
-            ),
         ),
     );
 
@@ -120,7 +118,6 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
         'Database' => __DIR__ . '/../..' . '/core/Database.php',
         'Db' => __DIR__ . '/../..' . '/app/Helpers/DB.php',
         'Debug' => __DIR__ . '/../..' . '/app/Helpers/Debug.php',
-        'Engine' => __DIR__ . '/../..' . '/commands/Engine.php',
         'GreetCommand' => __DIR__ . '/../..' . '/commands/GreetCommand.php',
         'Hash' => __DIR__ . '/../..' . '/app/Helpers/Hash.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
@@ -129,7 +126,6 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
         'Pagination' => __DIR__ . '/../..' . '/app/Helpers/Pagination.php',
         'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Router' => __DIR__ . '/../..' . '/plugins/Router.php',
-        'Sentinel' => __DIR__ . '/../..' . '/commands/Sentinel.php',
         'Session' => __DIR__ . '/../..' . '/core/Session.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
@@ -142,7 +138,6 @@ class ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52::$prefixesPsr0;
             $loader->classMap = ComposerStaticInita0b731b1a5a94a888a93a0c7d988ff52::$classMap;
 
         }, null, ClassLoader::class);

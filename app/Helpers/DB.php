@@ -59,7 +59,7 @@ class Db
      * @param   array   $params A single value or an array of values
      * @return  array   A result row
      */
-    public static function select($sql, $params = array())
+    public static function selectselect($sql, $params = array())
     {
         $statement = self::_query($sql, $params);
         return $statement->fetchAll(self::$_fetchMode);
@@ -98,16 +98,11 @@ class Db
             $Response['ID']= self::$_pdoObject->lastInsertId();
 
         } catch (PDOException $e) {
-            $Response['Code']='0';
+            $Response['Code']=0;
             $Response['Message']= 'Error Creating Entry: ' . $e->getMessage();
-
-
         }
 
         return json_encode($Response);
-
-
-
     }
 
 
@@ -143,15 +138,14 @@ class Db
             $sth->execute();
             $count = $sth->rowCount();
             if($count){
-                $Response['Code']='1';
+                $Response['Code']=1;
                 $Response['Rows']= $count;
                 $Response['Message']='Updated';
             } else {
-                $Response['Code']='0';
+                $Response['Code']=0;
                 $Response['Rows']= $count;
                 $Response['Message']='No Records Updated';
             }
-
 
         } catch (PDOException $e) {
             $ErrorCode = $e->errorInfo[1];
@@ -185,14 +179,50 @@ class Db
      * @param   array   $params A single value or an array of values
      * @return  mixed
      */
-    public static function getValue($sql, $params = array())
-    {
+    public static function getValue($sql, $params = array()) {
         $statement = self::_query($sql, $params);
         return $statement->fetchColumn(0);
     }
 
 
 
+    /**
+     * select
+     * @param string $sql An SQL string
+     * @param array $array Paramters to bind
+     * @param constant $fetchMode A PDO Fetch mode
+     * @return mixed
+     */
+    public static function getResultsPagination($sql, $array = array()) {
+        if(self::$_pdoObject == null) {
+            self::_connect();
+        }
+        try {
+            $sth = self::$_pdoObject->prepare($sql);
+            foreach ($array as $key => $value) {
+                $sth->bindValue("$key", $value);
+            }
+
+            $sth->execute();
+            $RowCount = $sth->rowCount();
+
+//            $statement = self::execute($sql);
+//            \Debug::print_array($statement);
+
+            $Result['results'] = $sth->fetchAll(PDO::FETCH_ASSOC);
+            $Result['rowsfound'] = $RowCount;
+
+        } catch (PDOException $e) {
+            $Result['Code']=0;
+            $Result['Message']= 'Error Select Entry: ' . $e->getMessage();
+
+            return json_encode($Result);
+        }
+
+        return $Result;
+
+
+    }
 
     /**
      * Execute a statement and returns row(s) as 2D array
@@ -201,52 +231,43 @@ class Db
      * @param   array   $params A single value or an array of values
      * @return  array   Result rows
      */
-    public static function getResult($sql, $params = array())
-    {
+    public static function getResult($sql, $params = array()) {
         $statement = self::_query($sql, $params);
         return $statement->fetchAll(self::$_fetchMode);
     }
 
-    public static function getLastInsertId($sequenceName = "")
-    {
+    public static function getLastInsertId($sequenceName = "") {
         return self::$_pdoObject->lastInsertId($sequenceName);
     }
 
-    public static function setFetchMode($fetchMode)
-    {
+    public static function setFetchMode($fetchMode) {
         self::_connect();
         self::$_fetchMode = $fetchMode;
     }
 
-    public static function getPDOObject()
-    {
+    public static function getPDOObject() {
         self::_connect();
         return self::$_pdoObject;
     }
 
-    public static function beginTransaction()
-    {
+    public static function beginTransaction() {
         self::_connect();
         self::$_pdoObject->beginTransaction();
     }
 
-    public static function commitTransaction()
-    {
+    public static function commitTransaction() {
         self::$_pdoObject->commit();
     }
 
-    public static function rollbackTransaction()
-    {
+    public static function rollbackTransaction() {
         self::$_pdoObject->rollBack();
     }
 
-    public static function setDriverOptions(array $options)
-    {
+    public static function setDriverOptions(array $options) {
         self::$_driverOptions = $options;
     }
 
-    private static function _connect()
-    {
+    private static function _connect() {
         if(self::$_pdoObject != null){
             return;
         }
