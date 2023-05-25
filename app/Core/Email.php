@@ -18,10 +18,7 @@ class Email extends Model
 	public $EmailParam; 
 	public $Attachment; 
 	public $ccEmail;
-	
-	public function __construct() {
-		 parent::__construct(); 
-	}
+
 	
 	public function SendEmail() {
 	$mail = new PHPMailer(true);
