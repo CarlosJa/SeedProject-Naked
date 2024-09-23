@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ErrorHandler.php';  // Make sure to include the ErrorHandler class
+
 class Bootstrap {
 
     private $_url = null;
@@ -13,16 +15,24 @@ class Bootstrap {
 
     /**
      * Starts the Bootstrap
-     * 
+     *
      * @return boolean
      */
-	
-	
+
+    public function __construct(){
+        set_error_handler([ErrorHandler::class, 'handleError']);
+        set_exception_handler([ErrorHandler::class, 'handleException']);
+        register_shutdown_function([ErrorHandler::class, 'handleShutdown']);
+
+        // Turn off display_errors if you want to handle all error display through this mechanism
+        ini_set('display_errors', 'Off');
+    }
+
     public function init() {
         // Sets the protected $_url
         $this->_getUrl();
-		
-		
+
+
 
         // Load the default controller if no URL is set
         // eg: Visit http://localhost it loads Default Controller
@@ -32,18 +42,20 @@ class Bootstrap {
         }
 
         //Router
-        $this->match = Router::Routing();
+        $this->match = \Router::Routing();
 
-    if(DEBUG == true) {
-        register_shutdown_function(function () {
-            $err = error_get_last();
-            if (! is_null($err)) {
-                print 'Error#'.$err['message'].'<br>';
-                print 'Line#'.$err['line'].'<br>';
-                print 'File#'.$err['file'].'<br>';
-            }
-        });
-    }
+
+
+        if(DEBUG == true) {
+            register_shutdown_function(function () {
+                $err = error_get_last();
+                if (! is_null($err)) {
+                    print 'Error#'.$err['message'].'<br>';
+                    print 'Line#'.$err['line'].'<br>';
+                    print 'File#'.$err['file'].'<br>';
+                }
+            });
+        }
 
 
         // This check whether there is a match         
@@ -123,16 +135,16 @@ class Bootstrap {
 
     /**
      * Load an existing controller if there IS a GET parameter passed
-     * 
+     *
      * @return boolean|string
      */
     private function _loadExistingController() {
         $file = $this->_defaultPath . '/' . $this->_controllerPath . $this->_url[0] . '.php';
-		
-		
+
+
         if (file_exists($file)) {
             require $file;
-			if($this->_url[1]) { $method = $this->_url[1]; } else { $method = "index"; }
+            if($this->_url[1]) { $method = $this->_url[1]; } else { $method = "index"; }
             $this->_controller = new $this->_url[0]($method);
             $this->_controller->loadModel($this->_url[0], $this->_modelPath);
         } else {
@@ -147,18 +159,18 @@ class Bootstrap {
      */
     private function _loadRouter() {
         /// Run the Router
-		
+
 
         $this->ControllerName = $this->match['target']['c'];
         $this->MethodName = $this->match['target']['a'];
         $this->URIParameters = $this->match['params'];
 
-		
+
         $file = $this->_defaultPath . '/' . $this->_controllerPath . $this->ControllerName . '.php';
 
         if (file_exists($file)) {
             require $file;
-			
+
             $this->_controller = new $this->ControllerName($this->MethodName);
             $this->_controller->loadModel($this->ControllerName, $this->_modelPath);
         } else {
@@ -172,7 +184,7 @@ class Bootstrap {
 
     /**
      * If a method is passed in the GET url paremter
-     * 
+     *
      *  http://localhost/controller/method/(param)/(param)/(param)
      *  url[0] = Controller
      *  url[1] = Method
@@ -220,7 +232,7 @@ class Bootstrap {
 
     /**
      * Display an error page if nothing exists
-     * 
+     *
      * @return boolean
      */
     private function _error() {
