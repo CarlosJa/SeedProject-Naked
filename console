@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+# Documentation https://symfony.com/doc/current/console.html
+# Everytime you added a new command you need to run: composer dump -o
+# Usage: php console app:ticker ltcusdt
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+# add our commands
+$application->add(new GreetCommand());
+$application->add(new Sentinel());
+$application->add(new Engine());
+$application->run();
