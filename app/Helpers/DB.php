@@ -242,4 +242,90 @@ class Db
 
         return $statement;
     }
+
+    /**
+     * Delete rows from the database
+     */
+    public static function delete($table, $where)
+    {
+        $pdo = self::_getConnection();
+
+        // Build the WHERE clause dynamically
+        $whereConditions = implode(' AND ', array_map(function($key) {
+            return "`$key` = :$key";
+        }, array_keys($where)));
+
+        try {
+            $sth = $pdo->prepare("DELETE FROM $table WHERE $whereConditions");
+
+            // Bind the parameters from the where array
+            foreach ($where as $key => $value) {
+                $sth->bindValue(":$key", $value);
+            }
+
+            $sth->execute();
+            $count = $sth->rowCount();
+
+            return json_encode([
+                'Code' => ($count > 0) ? 1 : 0,
+                'Rows' => $count,
+                'Message' => ($count > 0) ? 'Deleted' : 'No Records Deleted'
+            ]);
+        } catch (\PDOException $e) {
+            return json_encode([
+                'Code' => $e->errorInfo[1],
+                'Message' => 'Error Deleting From Database: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public static function batchInsert($table, array $data)
+    {
+        if (empty($data)) {
+            return json_encode([
+                'Code' => 0,
+                'Message' => 'No data provided for insertion'
+            ]);
+        }
+
+        $pdo = self::_getConnection();
+
+        // Assume all rows have the same structure as the first row
+        $firstRow = reset($data);
+        $columns = array_keys($firstRow);
+        $columnString = '`' . implode('`, `', $columns) . '`';
+
+        // Create placeholders for each row
+        $rowPlaceholder = '(' . implode(', ', array_fill(0, count($columns), '?')) . ')';
+        $valuePlaceholders = implode(', ', array_fill(0, count($data), $rowPlaceholder));
+
+        $sql = "INSERT INTO $table ($columnString) VALUES $valuePlaceholders";
+
+        try {
+            $stmt = $pdo->prepare($sql);
+
+            // Flatten the data array and bind values
+            $values = [];
+            foreach ($data as $row) {
+                foreach ($columns as $column) {
+                    $values[] = $row[$column];
+                }
+            }
+
+            $stmt->execute($values);
+
+            $insertedCount = $stmt->rowCount();
+
+            return json_encode([
+                'Code' => 1,
+                'Message' => 'Batch insert successful',
+                'InsertedRows' => $insertedCount
+            ]);
+        } catch (\PDOException $e) {
+            return json_encode([
+                'Code' => 0,
+                'Message' => 'Error performing batch insert: ' . $e->getMessage()
+            ]);
+        }
+    }
 }

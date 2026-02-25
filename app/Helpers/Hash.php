@@ -18,5 +18,14 @@ class Hash
         return hash_final($context);
         
     }
-    
+
+    public static function createApi(){
+        $key = implode('-', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 30), 6));
+        return $key;
+    }
+
+    public static function formData(){
+        $key = implode('-', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 15), 5));
+        return $key;
+    }
 }

@@ -12,6 +12,6 @@ $application = new Application();
 
 # add our commands
 $application->add(new GreetCommand());
-$application->add(new Sentinel());
-$application->add(new Engine());
+//$application->add(new Sentinel());
+//$application->add(new Engine());
 $application->run();

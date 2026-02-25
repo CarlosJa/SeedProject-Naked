@@ -1,5 +1,5 @@
 #ignore project files
-config.php
+
 lab/*
 
 # Node artifact files
@@ -49,3 +49,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+**/desktop.ini
+/.user.ini
